@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+@import "./components/Body.scss";
+@import "./components/Footer.scss";
+@import "./components/Home.scss";
+@import "./components/Navbar.scss";
+@import "./components/Profile.scss";
+@import "./components/SignInForm.scss";
+@import "./components/SignUpForm.scss";
+
 * {
   margin: 0;
   padding: 0;
