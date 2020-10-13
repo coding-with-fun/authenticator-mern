@@ -11,6 +11,7 @@ require("dotenv").config();
 const router = express.Router();
 const User = require("../models/User");
 const userAuth = require("../middleware/auth");
+const { findByIdAndDelete } = require("../models/User");
 
 /**
  * @route         POST /user/signup
@@ -222,7 +223,6 @@ router.patch("/update", userAuth, async (req, res) => {
     };
 
     const updatedUser = await User.findByIdAndUpdate(userID, updates, options);
-    console.log(updatedUser);
 
     return res.status(200).json({
       status: true,
@@ -233,6 +233,38 @@ router.patch("/update", userAuth, async (req, res) => {
       success: [
         {
           msg: "User updated successfully.",
+        },
+      ],
+    });
+  } catch (error) {
+    console.log(`${error.message}`.red);
+    return res.status(500).json({
+      status: false,
+      error: [
+        {
+          msg: "Internal server error!!",
+        },
+      ],
+    });
+  }
+});
+
+/**
+ * @route         DELETE /user/delete
+ * @description   Delete user
+ * @access        Private
+ */
+router.delete("/delete", userAuth, async (req, res) => {
+  try {
+    const userID = req.user.id;
+
+    await User.findByIdAndDelete(userID);
+
+    return res.status(200).json({
+      status: true,
+      success: [
+        {
+          msg: "User deleted successfully.",
         },
       ],
     });
