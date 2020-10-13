@@ -292,8 +292,6 @@ router.get("/details", userAuth, async (req, res) => {
 
     const existingUser = await User.findById(userID);
 
-    console.log(existingUser);
-
     return res.status(200).json({
       status: true,
       user: {
