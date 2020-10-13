@@ -40,6 +40,8 @@ npm i
 
 ## Setting up environment variables
 
+### Global environment variables
+
 > Path = mern-dev-connector
 
 Create a new file **.env**
@@ -48,4 +50,14 @@ Create a new file **.env**
 PORT=5000
 MONGO_URI=<MongoDB connection URI>
 JWT_SECRET=<A strong password>
+```
+
+### Client environment variables
+
+> Path = mern-dev-connector -> client
+
+Create a new file **.env**
+
+```bash
+REACT_APP_SERVER_URL=<Server URL (example = http://localhost:5000)>
 ```
