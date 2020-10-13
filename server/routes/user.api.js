@@ -281,4 +281,42 @@ router.delete("/delete", userAuth, async (req, res) => {
   }
 });
 
+/**
+ * @route         GET /user/details
+ * @description   Get user details
+ * @access        Private
+ */
+router.get("/details", userAuth, async (req, res) => {
+  try {
+    const userID = req.user.id;
+
+    const existingUser = await User.findById(userID);
+
+    console.log(existingUser);
+
+    return res.status(200).json({
+      status: true,
+      user: {
+        name: existingUser.name,
+        email: existingUser.email,
+      },
+      success: [
+        {
+          msg: "Fetched user's details successfully.",
+        },
+      ],
+    });
+  } catch (error) {
+    console.log(`${error.message}`.red);
+    return res.status(500).json({
+      status: false,
+      error: [
+        {
+          msg: "Internal server error!!",
+        },
+      ],
+    });
+  }
+});
+
 module.exports = router;
