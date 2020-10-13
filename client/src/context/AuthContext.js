@@ -1,4 +1,3 @@
-import Axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { VerifyUser } from "../api/auth.api";
 

@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { createContext } from "react";
 import { UserSignIn } from "../api/user.api";
 
 export const UserContext = createContext();
@@ -21,7 +21,9 @@ export const UserProvider = (props) => {
   const FetchDetails = async () => {};
 
   return (
-    <UserContext.Provider value={{ SignInUser }}>
+    <UserContext.Provider
+      value={{ SignUpUser, SignInUser, UpdateUser, DeleteUser, FetchDetails }}
+    >
       {props.children}
     </UserContext.Provider>
   );

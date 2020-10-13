@@ -13,20 +13,22 @@ function App() {
     <div>
       <Router>
         <Navbar />
-        <Switch>
-          <Route exact path="/">
-            <Body />
-          </Route>
-          <Route path="/signup">
-            <SignUpForm />
-          </Route>
-          <Route path="/signin">
-            <SignInForm />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-        </Switch>
+        <div className="body__content container">
+          <Switch>
+            <Route exact path="/">
+              <Body />
+            </Route>
+            <Route path="/signup">
+              <SignUpForm />
+            </Route>
+            <Route path="/signin">
+              <SignInForm />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
+        </div>
         <Footer />
       </Router>
     </div>
