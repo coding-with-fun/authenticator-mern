@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Home = () => {
-  return <div>Home</div>;
+  const { isVerified } = useContext(AuthContext);
+
+  return <div>{isVerified ? "Harsh" : "Guest"}</div>;
 };
 
 export default Home;

@@ -20,7 +20,7 @@ npm i
 
 > Path = authenticator-mern -> server
 >
-> Packages installed = **bcryptjs colors dotenv express express-validator jsonwebtoken mongoose**
+> Packages installed = **bcryptjs colors cors dotenv express express-validator jsonwebtoken mongoose**
 
 ```bash
 npm i
