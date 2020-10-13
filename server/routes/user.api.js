@@ -10,6 +10,7 @@ require("dotenv").config();
 
 const router = express.Router();
 const User = require("../models/User");
+const userAuth = require("../middleware/auth");
 
 /**
  * @route         POST /user/signup
@@ -33,17 +34,17 @@ router.post(
       .withMessage("Password must be at least 5 chars long."),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        status: false,
-        error: errors.array(),
-      });
-    }
-
-    const { name, email, password, confirmPassword } = req.body;
-
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          status: false,
+          error: errors.array(),
+        });
+      }
+
+      const { name, email, password, confirmPassword } = req.body;
+
       // TODO Confirm passwords
       if (password !== confirmPassword) {
         return res.status(400).json({
@@ -119,7 +120,7 @@ router.post(
 
 /**
  * @route         POST /user/signin
- * @description   SIgn in for user
+ * @description   Sign in for user
  * @access        Public
  */
 router.post(
@@ -133,17 +134,17 @@ router.post(
       .withMessage("Password must be at least 5 chars long."),
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({
-        status: false,
-        error: errors.array(),
-      });
-    }
-
-    const { email, password } = req.body;
-
     try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          status: false,
+          error: errors.array(),
+        });
+      }
+
+      const { email, password } = req.body;
+
       // TODO Check if user exists
       const existingUser = await User.findOne({
         email,
@@ -206,5 +207,46 @@ router.post(
     }
   }
 );
+
+/**
+ * @route         PATCH /user/update
+ * @description   Update user
+ * @access        Private
+ */
+router.patch("/update", userAuth, async (req, res) => {
+  try {
+    const userID = req.user.id;
+    const updates = req.body;
+    const options = {
+      new: true,
+    };
+
+    const updatedUser = await User.findByIdAndUpdate(userID, updates, options);
+    console.log(updatedUser);
+
+    return res.status(200).json({
+      status: true,
+      user: {
+        name: updatedUser.name,
+        email: updatedUser.email,
+      },
+      success: [
+        {
+          msg: "User updated successfully.",
+        },
+      ],
+    });
+  } catch (error) {
+    console.log(`${error.message}`.red);
+    return res.status(500).json({
+      status: false,
+      error: [
+        {
+          msg: "Internal server error!!",
+        },
+      ],
+    });
+  }
+});
 
 module.exports = router;
