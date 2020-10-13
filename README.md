@@ -4,9 +4,9 @@ A starter MERN Authentication app.
 
 ---
 
-## Project setup
+## Installing dependencies
 
-### Install global dependencies
+### Project dependencies
 
 > Path = authenticator-mern
 >
@@ -16,7 +16,7 @@ A starter MERN Authentication app.
 npm i
 ```
 
-### Install server dependencies
+### Server dependencies
 
 > Path = authenticator-mern -> server
 >
@@ -26,7 +26,7 @@ npm i
 npm i
 ```
 
-### Install client dependencies
+### Client dependencies
 
 > Path = authenticator-mern -> client
 >
@@ -34,4 +34,18 @@ npm i
 
 ```bash
 npm i
+```
+
+---
+
+## Setting up environment variables
+
+> Path = mern-dev-connector
+
+Create a new file **.env**
+
+```bash
+PORT=5000
+MONGO_URI=<MongoDB connection URI>
+JWT_SECRET=<A strong password>
 ```
