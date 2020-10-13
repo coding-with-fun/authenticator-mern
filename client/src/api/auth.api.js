@@ -9,5 +9,5 @@ export const VerifyUser = async (token) => {
     "x-auth-token": token,
   };
 
-  return await Axios.get(URL, headers);
+  return await Axios.get(URL, { headers: headers });
 };

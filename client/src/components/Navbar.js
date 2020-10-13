@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-
 import Logo from "../assets/authentication.png";
+import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
   const { isVerified, setIsVerified } = useContext(AuthContext);
+  const { userDetails } = useContext(UserContext);
+
   const history = useHistory();
 
   const handleSignOut = () => {
@@ -30,7 +32,7 @@ const Navbar = () => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              {isVerified ? "Harsh" : "User"}
+              {isVerified ? userDetails?.name : "User"}
             </div>
             <div className="dropdown-menu dropdown-menu-right">
               {isVerified ? (

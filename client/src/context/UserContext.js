@@ -1,16 +1,23 @@
-import React, { createContext } from "react";
-import { UserSignIn } from "../api/user.api";
+import React, { createContext, useEffect } from "react";
+import { useState } from "react";
+import { UserDetails, UserSignIn } from "../api/user.api";
 
 export const UserContext = createContext();
 
 export const UserProvider = (props) => {
+  const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(() => {
+    FetchDetails();
+  }, []);
+
   const SignUpUser = async () => {};
 
   const SignInUser = async (body, setIsVerified, history) => {
-    const userData = await UserSignIn(body);
-    console.log(userData);
-    localStorage.setItem("token", userData.data.token);
+    const data = await UserSignIn(body);
+    localStorage.setItem("token", data.data.token);
     setIsVerified(true);
+    FetchDetails();
     history.push("/");
   };
 
@@ -18,11 +25,27 @@ export const UserProvider = (props) => {
 
   const DeleteUser = async () => {};
 
-  const FetchDetails = async () => {};
+  const FetchDetails = async () => {
+    const localToken = localStorage.getItem("token");
+
+    if (localToken) {
+      const data = await UserDetails(localToken);
+      setUserDetails(data.data.user);
+    } else {
+      setUserDetails(null);
+    }
+  };
 
   return (
     <UserContext.Provider
-      value={{ SignUpUser, SignInUser, UpdateUser, DeleteUser, FetchDetails }}
+      value={{
+        userDetails,
+        SignUpUser,
+        SignInUser,
+        UpdateUser,
+        DeleteUser,
+        FetchDetails,
+      }}
     >
       {props.children}
     </UserContext.Provider>
