@@ -30,7 +30,7 @@ npm i
 
 > Path = authenticator-mern -> client
 >
-> Packages installed = Basic client dependencies + **axios**
+> Packages installed = Basic client dependencies + **axios node-sass react-router-dom**
 
 ```bash
 npm i
