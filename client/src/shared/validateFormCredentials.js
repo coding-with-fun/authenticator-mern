@@ -114,6 +114,7 @@ export const validateUpdateCredentials = (
   setErrorDisplayNameMessage,
   setErrorEmailMessage,
   setResponseMessage,
+  history,
   setIsVerified,
   UpdateUser
 ) => {
@@ -134,7 +135,7 @@ export const validateUpdateCredentials = (
             email: userEmail,
           };
 
-          UpdateUser(body, setIsVerified, setResponseMessage);
+          UpdateUser(body, setIsVerified, history, setResponseMessage);
         }
       }
     }

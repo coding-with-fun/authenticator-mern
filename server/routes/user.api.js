@@ -3,6 +3,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const gravatar = require("gravatar");
 const { check, validationResult } = require("express-validator");
 
 require("colors");
@@ -76,9 +77,17 @@ router.post(
       const salt = await bcrypt.genSalt();
       const hashPassword = await bcrypt.hash(password, salt);
 
+      // TODO Get Gravatar URL
+      const avatar = gravatar.url(email, {
+        s: "200",
+        r: "pg",
+        d: "mm",
+      });
+
       const newUser = new User({
         name,
         email,
+        avatar,
         password: hashPassword,
       });
 
@@ -296,6 +305,7 @@ router.get("/details", userAuth, async (req, res) => {
       user: {
         name: existingUser.name,
         email: existingUser.email,
+        avatar: existingUser.avatar,
       },
       success: [
         {
