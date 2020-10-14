@@ -1,9 +1,13 @@
-.signin_form {
+.signup_form__main,
+.signin_form__main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
 
+  .signup_form__container,
   .signin_form__container {
     color: #2b3137;
     background-color: #ffffff;
@@ -27,8 +31,13 @@
       margin-bottom: 40px;
     }
 
-    form {
+    .signup_form,
+    .signin_form {
       width: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
       .form-group {
         width: 100%;
@@ -40,7 +49,8 @@
     }
   }
 
-  .path_to_signup {
+  .path_to_signup,
+  .path_to_signin {
     text-align: center;
 
     a {

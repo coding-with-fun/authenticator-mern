@@ -33,7 +33,8 @@ const SignInForm = () => {
   //  email: "testuser@yopmail.com"
   //  password: "testuser"
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     try {
       if (!userEmail) {
         setErrorEmailMessage("Please fill in email address.");
@@ -65,11 +66,15 @@ const SignInForm = () => {
   };
 
   return (
-    <div className="signin_form">
+    <div className="signin_form__main">
       <div className="container signin_form__container">
         <div className="form__header">Please Sign In</div>
 
-        <form className=" signin_form">
+        <form
+          className="signin_form"
+          onSubmit={(e) => handleSubmit(e)}
+          autoComplete="off"
+        >
           <div className="form-group">
             <label htmlFor="userEmail">Email address</label>
             <input
@@ -115,11 +120,16 @@ const SignInForm = () => {
             </small>
           </div>
 
-          <div className="btn btn-primary" onClick={handleSubmit}>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            onClick={(e) => handleSubmit(e)}
+          >
             Sign In
-          </div>
+          </button>
         </form>
       </div>
+
       <div className="path_to_signup">
         Don't have a account? <Link to="/signup">Sign Up</Link>
       </div>

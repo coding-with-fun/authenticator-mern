@@ -1,6 +1,6 @@
 import React, { createContext, useEffect } from "react";
 import { useState } from "react";
-import { UserDetails, UserSignIn } from "../api/user.api";
+import { UserDetails, UserSignIn, UserSignUp } from "../api/user.api";
 
 export const UserContext = createContext();
 
@@ -11,7 +11,13 @@ export const UserProvider = (props) => {
     FetchDetails();
   }, []);
 
-  const SignUpUser = async () => {};
+  const SignUpUser = async (body, setIsVerified, history) => {
+    const data = await UserSignUp(body);
+    localStorage.setItem("token", data.data.token);
+    setIsVerified(true);
+    FetchDetails();
+    history.push("/");
+  };
 
   const SignInUser = async (body, setIsVerified, history) => {
     const data = await UserSignIn(body);
