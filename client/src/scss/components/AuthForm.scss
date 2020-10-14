@@ -1,5 +1,6 @@
 .signup_form__main,
-.signin_form__main {
+.signin_form__main,
+.profile__container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,7 +33,7 @@
     .form__header {
       font-size: 25px;
       font-weight: 300;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     .signup_form,
@@ -62,5 +63,11 @@
       color: #ffffff;
       font-weight: 600;
     }
+  }
+
+  .btn__group {
+    display: flex;
+    justify-content: space-around;
+    // align-items: center;
   }
 }

@@ -6,7 +6,11 @@ const Home = () => {
   const { isVerified } = useContext(AuthContext);
   const { userDetails } = useContext(UserContext);
 
-  return <div>{isVerified ? userDetails?.name : "Guest"}</div>;
+  return (
+    <div className="home__container">
+      <h1>Welcome {isVerified ? userDetails?.name : "Guest"}</h1>
+    </div>
+  );
 };
 
 export default Home;

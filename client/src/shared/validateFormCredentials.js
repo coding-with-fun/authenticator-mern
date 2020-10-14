@@ -107,3 +107,38 @@ export const validateSignUpCredentials = (
     console.error(error);
   }
 };
+
+export const validateUpdateCredentials = (
+  userDisplayName,
+  userEmail,
+  setErrorDisplayNameMessage,
+  setErrorEmailMessage,
+  setResponseMessage,
+  setIsVerified,
+  UpdateUser
+) => {
+  let body;
+
+  try {
+    if (!userDisplayName) {
+      setErrorDisplayNameMessage("Please fill in display name");
+    } else {
+      if (!userEmail) {
+        setErrorEmailMessage("Please fill in email address.");
+      } else {
+        if (!validateEmail(userEmail)) {
+          setErrorEmailMessage("Invalid email address.");
+        } else {
+          body = {
+            name: userDisplayName,
+            email: userEmail,
+          };
+
+          UpdateUser(body, setIsVerified, setResponseMessage);
+        }
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

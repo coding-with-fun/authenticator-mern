@@ -1,6 +1,12 @@
 import React, { createContext, useEffect } from "react";
 import { useState } from "react";
-import { UserDetails, UserSignIn, UserSignUp } from "../api/user.api";
+import {
+  UserDelete,
+  UserDetails,
+  UserSignIn,
+  UserSignUp,
+  UserUpdate,
+} from "../api/user.api";
 
 export const UserContext = createContext();
 
@@ -37,9 +43,34 @@ export const UserProvider = (props) => {
     }
   };
 
-  const UpdateUser = async () => {};
+  const UpdateUser = async (body, setIsVerified, setResponseMessage) => {
+    try {
+      const localToken = localStorage.getItem("token");
+      const data = await UserUpdate(body, localToken);
+      setResponseMessage({
+        status: data.data.status,
+        msg: data.data.success[0].msg,
+      });
+      setIsVerified(true);
+      FetchDetails();
+    } catch (error) {
+      console.error(error.response);
+      setResponseMessage({
+        status: error.response?.data.status,
+        msg: error.response?.data.error[0].msg,
+      });
+      setIsVerified(false);
+      localStorage.removeItem("token");
+    }
+  };
 
-  const DeleteUser = async () => {};
+  const DeleteUser = async (history, setIsVerified) => {
+    const localToken = localStorage.getItem("token");
+    await UserDelete(localToken);
+    localStorage.removeItem("token");
+    setIsVerified(false);
+    history.push("/");
+  };
 
   const FetchDetails = async () => {
     try {
@@ -53,6 +84,7 @@ export const UserProvider = (props) => {
       }
     } catch (error) {
       console.error(error.response);
+      localStorage.removeItem("token");
     }
   };
 
