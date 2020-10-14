@@ -11,20 +11,30 @@ export const UserProvider = (props) => {
     FetchDetails();
   }, []);
 
-  const SignUpUser = async (body, setIsVerified, history) => {
-    const data = await UserSignUp(body);
-    localStorage.setItem("token", data.data.token);
-    setIsVerified(true);
-    FetchDetails();
-    history.push("/");
+  const SignUpUser = async (body, setIsVerified, history, setErrorMessage) => {
+    try {
+      const data = await UserSignUp(body);
+      localStorage.setItem("token", data.data.token);
+      setIsVerified(true);
+      FetchDetails();
+      history.push("/");
+    } catch (error) {
+      console.error(error.response);
+      setErrorMessage(error.response.data.error[0].msg);
+    }
   };
 
-  const SignInUser = async (body, setIsVerified, history) => {
-    const data = await UserSignIn(body);
-    localStorage.setItem("token", data.data.token);
-    setIsVerified(true);
-    FetchDetails();
-    history.push("/");
+  const SignInUser = async (body, setIsVerified, history, setErrorMessage) => {
+    try {
+      const data = await UserSignIn(body);
+      localStorage.setItem("token", data.data.token);
+      setIsVerified(true);
+      FetchDetails();
+      history.push("/");
+    } catch (error) {
+      console.error(error.response);
+      setErrorMessage(error.response.data.error[0].msg);
+    }
   };
 
   const UpdateUser = async () => {};
@@ -32,13 +42,17 @@ export const UserProvider = (props) => {
   const DeleteUser = async () => {};
 
   const FetchDetails = async () => {
-    const localToken = localStorage.getItem("token");
+    try {
+      const localToken = localStorage.getItem("token");
 
-    if (localToken) {
-      const data = await UserDetails(localToken);
-      setUserDetails(data.data.user);
-    } else {
-      setUserDetails(null);
+      if (localToken) {
+        const data = await UserDetails(localToken);
+        setUserDetails(data.data.user);
+      } else {
+        setUserDetails(null);
+      }
+    } catch (error) {
+      console.error(error.response);
     }
   };
 

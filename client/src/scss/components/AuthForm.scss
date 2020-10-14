@@ -4,8 +4,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-top: 40px;
   padding-bottom: 40px;
+
+  .alert {
+    height: 50px;
+    margin-bottom: 30px;
+  }
 
   .signup_form__container,
   .signin_form__container {
