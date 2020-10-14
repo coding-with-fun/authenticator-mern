@@ -10,6 +10,7 @@ const Profile = () => {
 
   const [userDisplayName, setUserDisplayName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
 
   const [errorDisplayNameMessage, setErrorDisplayNameMessage] = useState(null);
   const [errorEmailMessage, setErrorEmailMessage] = useState(null);
@@ -24,6 +25,13 @@ const Profile = () => {
     if (userDetails) {
       setUserDisplayName(userDetails.name);
       setUserEmail(userDetails.email);
+      setUserAvatar(userDetails.avatar);
+    } else {
+      setUserDisplayName("");
+      setUserEmail("");
+      setUserAvatar(
+        "http://www.gravatar.com/avatar/aaee2964ee764dbc53cea54b81cc996f?s=200&r=pg&d=mm"
+      );
     }
     alertClass();
   }, [userDetails]);
@@ -51,6 +59,7 @@ const Profile = () => {
       setErrorDisplayNameMessage,
       setErrorEmailMessage,
       setResponseMessage,
+      history,
       setIsVerified,
       UpdateUser
     );
@@ -81,6 +90,8 @@ const Profile = () => {
 
       <div className="container signup_form__container">
         <div className="form__header">User Profile</div>
+
+        <img className="avatar" src={userAvatar} alt="" />
 
         <form className="signup_form" autoComplete="off">
           <div className="form-group">

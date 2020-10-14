@@ -43,7 +43,12 @@ export const UserProvider = (props) => {
     }
   };
 
-  const UpdateUser = async (body, setIsVerified, setResponseMessage) => {
+  const UpdateUser = async (
+    body,
+    setIsVerified,
+    history,
+    setResponseMessage
+  ) => {
     try {
       const localToken = localStorage.getItem("token");
       const data = await UserUpdate(body, localToken);
@@ -60,7 +65,9 @@ export const UserProvider = (props) => {
         msg: error.response?.data.error[0].msg,
       });
       setIsVerified(false);
+      setUserDetails(null);
       localStorage.removeItem("token");
+      history.push("/");
     }
   };
 
@@ -80,11 +87,13 @@ export const UserProvider = (props) => {
         const data = await UserDetails(localToken);
         setUserDetails(data.data.user);
       } else {
-        setUserDetails(null);
+        setUserDetails({
+          avatar:
+            "http://www.gravatar.com/avatar/aaee2964ee764dbc53cea54b81cc996f?s=200&r=pg&d=mm",
+        });
       }
     } catch (error) {
       console.error(error.response);
-      localStorage.removeItem("token");
     }
   };
 

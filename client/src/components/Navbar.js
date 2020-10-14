@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../assets/authentication.png";
 import { AuthContext } from "../context/AuthContext";
@@ -8,7 +9,21 @@ const Navbar = () => {
   const { isVerified, setIsVerified } = useContext(AuthContext);
   const { userDetails } = useContext(UserContext);
 
+  const [avatar, setAvatar] = useState(null);
+
   const history = useHistory();
+
+  useEffect(() => {
+    if (userDetails) {
+      setAvatar(userDetails.avatar);
+    }
+
+    if (!isVerified) {
+      setAvatar(
+        "http://www.gravatar.com/avatar/aaee2964ee764dbc53cea54b81cc996f?s=200&r=pg&d=mm"
+      );
+    }
+  }, [userDetails, isVerified]);
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
@@ -19,7 +34,7 @@ const Navbar = () => {
   return (
     <nav className="navbar fixed-top navbar-expand">
       <Link to="/" className="navbar-brand">
-        <img src={Logo} alt="" />
+        <img src={Logo} alt="Logo" />
       </Link>
 
       <div className=" navbar-collapse">
@@ -32,7 +47,7 @@ const Navbar = () => {
               aria-haspopup="true"
               aria-expanded="false"
             >
-              {isVerified ? userDetails?.name : "User"}
+              <img className="avatar" src={avatar} alt="User Avatar" />
             </div>
             <div className="dropdown-menu dropdown-menu-right">
               {isVerified ? (
