@@ -16,12 +16,10 @@ export const AuthProvider = (props) => {
     }
   }, []);
 
-  const AuthUser = async () => {
-    const verifiedUser = await VerifyUser(userToken);
-    setIsVerified(verifiedUser.data.status);
-  };
+  const AuthUser = async () => {};
+
   return (
-    <AuthContext.Provider value={{ isVerified, setIsVerified, AuthUser }}>
+    <AuthContext.Provider value={{ isVerified, setIsVerified }}>
       {props.children}
     </AuthContext.Provider>
   );
