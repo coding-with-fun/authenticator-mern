@@ -80,7 +80,7 @@ const Profile = () => {
       </div>
 
       <div className="container signup_form__container">
-        <div className="form__header">Update Profile</div>
+        <div className="form__header">User Profile</div>
 
         <form className="signup_form" autoComplete="off">
           <div className="form-group">

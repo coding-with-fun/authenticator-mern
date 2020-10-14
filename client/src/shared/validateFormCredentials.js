@@ -88,7 +88,7 @@ export const validateSignUpCredentials = (
                     setErrorConfirmPasswordMessage("Password does not match.");
                   } else {
                     body = {
-                      name: userDisplayName,
+                      name: userDisplayName.trim(),
                       email: userEmail,
                       password: userPassword,
                       confirmPassword: userConfirmPassword,
@@ -130,7 +130,7 @@ export const validateUpdateCredentials = (
           setErrorEmailMessage("Invalid email address.");
         } else {
           body = {
-            name: userDisplayName,
+            name: userDisplayName.trim(),
             email: userEmail,
           };
 

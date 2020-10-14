@@ -64,10 +64,16 @@
       font-weight: 600;
     }
   }
+}
 
+.profile__container {
   .btn__group {
     display: flex;
     justify-content: space-around;
-    // align-items: center;
+    flex-flow: wrap;
+
+    .btn {
+      margin-bottom: 15px;
+    }
   }
 }
