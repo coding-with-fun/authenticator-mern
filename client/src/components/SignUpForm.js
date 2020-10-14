@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 
 import validateEmail from "../shared/validateEmail";
+import { validateSignUpCredentials } from "../shared/validateFormCredentials";
 
 const SignUpForm = () => {
   const { SignUpUser } = useContext(UserContext);
@@ -60,58 +61,19 @@ const SignUpForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      if (!userDisplayName) {
-        setErrorDisplayNameMessage("Please fill in display name");
-      } else {
-        if (!userEmail) {
-          setErrorEmailMessage("Please fill in email address.");
-        } else {
-          if (!userPassword) {
-            setErrorPasswordMessage("Please fill in password.");
-          } else {
-            if (!userConfirmPassword) {
-              setErrorConfirmPasswordMessage(
-                "Please fill in confirm password."
-              );
-            } else {
-              if (!validateEmail(userEmail)) {
-                setErrorEmailMessage("Invalid email address.");
-              } else {
-                if (userPassword.length < 5) {
-                  setErrorPasswordMessage(
-                    "Password needs to be at least 5 characters long."
-                  );
-                } else {
-                  if (userConfirmPassword.length < 5) {
-                    setErrorConfirmPasswordMessage(
-                      "Password needs to be at least 5 characters long."
-                    );
-                  } else {
-                    if (userPassword !== userConfirmPassword) {
-                      setErrorConfirmPasswordMessage(
-                        "Password does not match."
-                      );
-                    } else {
-                      const body = {
-                        name: userDisplayName,
-                        email: userEmail,
-                        password: userPassword,
-                        confirmPassword: userConfirmPassword,
-                      };
-
-                      SignUpUser(body, setIsVerified, history);
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    validateSignUpCredentials(
+      userDisplayName,
+      userEmail,
+      userPassword,
+      userConfirmPassword,
+      setErrorDisplayNameMessage,
+      setErrorEmailMessage,
+      setErrorPasswordMessage,
+      setErrorConfirmPasswordMessage,
+      history,
+      setIsVerified,
+      SignUpUser
+    );
   };
 
   return (

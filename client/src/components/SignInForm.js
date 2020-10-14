@@ -2,8 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
-
-import validateEmail from "../shared/validateEmail";
+import { validateSignInCredentials } from "../shared/validateFormCredentials";
 
 const SignInForm = () => {
   const { SignInUser } = useContext(UserContext);
@@ -11,6 +10,7 @@ const SignInForm = () => {
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+
   const [errorEmailMessage, setErrorEmailMessage] = useState(null);
   const [errorPasswordMessage, setErrorPasswordMessage] = useState(null);
 
@@ -35,34 +35,15 @@ const SignInForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      if (!userEmail) {
-        setErrorEmailMessage("Please fill in email address.");
-      } else {
-        if (!userPassword) {
-          setErrorPasswordMessage("Please fill in password.");
-        } else {
-          if (!validateEmail(userEmail)) {
-            setErrorEmailMessage("Invalid email address.");
-          } else {
-            if (userPassword.length < 5) {
-              setErrorPasswordMessage(
-                "Password needs to be at least 5 characters long."
-              );
-            } else {
-              const body = {
-                email: userEmail,
-                password: userPassword,
-              };
-
-              SignInUser(body, setIsVerified, history);
-            }
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    validateSignInCredentials(
+      userEmail,
+      userPassword,
+      setErrorEmailMessage,
+      setErrorPasswordMessage,
+      history,
+      setIsVerified,
+      SignInUser
+    );
   };
 
   return (
