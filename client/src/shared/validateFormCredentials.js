@@ -5,6 +5,7 @@ export const validateSignInCredentials = (
   userPassword,
   setErrorEmailMessage,
   setErrorPasswordMessage,
+  setErrorMessage,
   history,
   setIsVerified,
   SignInUser
@@ -31,7 +32,7 @@ export const validateSignInCredentials = (
               password: userPassword,
             };
 
-            SignInUser(body, setIsVerified, history);
+            SignInUser(body, setIsVerified, history, setErrorMessage);
           }
         }
       }
@@ -50,6 +51,7 @@ export const validateSignUpCredentials = (
   setErrorEmailMessage,
   setErrorPasswordMessage,
   setErrorConfirmPasswordMessage,
+  setErrorMessage,
   history,
   setIsVerified,
   SignUpUser
@@ -86,18 +88,53 @@ export const validateSignUpCredentials = (
                     setErrorConfirmPasswordMessage("Password does not match.");
                   } else {
                     body = {
-                      name: userDisplayName,
+                      name: userDisplayName.trim(),
                       email: userEmail,
                       password: userPassword,
                       confirmPassword: userConfirmPassword,
                     };
 
-                    SignUpUser(body, setIsVerified, history);
+                    SignUpUser(body, setIsVerified, history, setErrorMessage);
                   }
                 }
               }
             }
           }
+        }
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const validateUpdateCredentials = (
+  userDisplayName,
+  userEmail,
+  setErrorDisplayNameMessage,
+  setErrorEmailMessage,
+  setResponseMessage,
+  setIsVerified,
+  UpdateUser
+) => {
+  let body;
+
+  try {
+    if (!userDisplayName) {
+      setErrorDisplayNameMessage("Please fill in display name");
+    } else {
+      if (!userEmail) {
+        setErrorEmailMessage("Please fill in email address.");
+      } else {
+        if (!validateEmail(userEmail)) {
+          setErrorEmailMessage("Invalid email address.");
+        } else {
+          body = {
+            name: userDisplayName.trim(),
+            email: userEmail,
+          };
+
+          UpdateUser(body, setIsVerified, setResponseMessage);
         }
       }
     }

@@ -1,6 +1,12 @@
 import React, { createContext, useEffect } from "react";
 import { useState } from "react";
-import { UserDetails, UserSignIn, UserSignUp } from "../api/user.api";
+import {
+  UserDelete,
+  UserDetails,
+  UserSignIn,
+  UserSignUp,
+  UserUpdate,
+} from "../api/user.api";
 
 export const UserContext = createContext();
 
@@ -11,34 +17,74 @@ export const UserProvider = (props) => {
     FetchDetails();
   }, []);
 
-  const SignUpUser = async (body, setIsVerified, history) => {
-    const data = await UserSignUp(body);
-    localStorage.setItem("token", data.data.token);
-    setIsVerified(true);
-    FetchDetails();
-    history.push("/");
+  const SignUpUser = async (body, setIsVerified, history, setErrorMessage) => {
+    try {
+      const data = await UserSignUp(body);
+      localStorage.setItem("token", data.data.token);
+      setIsVerified(true);
+      FetchDetails();
+      history.push("/");
+    } catch (error) {
+      console.error(error.response);
+      setErrorMessage(error.response.data.error[0].msg);
+    }
   };
 
-  const SignInUser = async (body, setIsVerified, history) => {
-    const data = await UserSignIn(body);
-    localStorage.setItem("token", data.data.token);
-    setIsVerified(true);
-    FetchDetails();
-    history.push("/");
+  const SignInUser = async (body, setIsVerified, history, setErrorMessage) => {
+    try {
+      const data = await UserSignIn(body);
+      localStorage.setItem("token", data.data.token);
+      setIsVerified(true);
+      FetchDetails();
+      history.push("/");
+    } catch (error) {
+      console.error(error.response);
+      setErrorMessage(error.response.data.error[0].msg);
+    }
   };
 
-  const UpdateUser = async () => {};
+  const UpdateUser = async (body, setIsVerified, setResponseMessage) => {
+    try {
+      const localToken = localStorage.getItem("token");
+      const data = await UserUpdate(body, localToken);
+      setResponseMessage({
+        status: data.data.status,
+        msg: data.data.success[0].msg,
+      });
+      setIsVerified(true);
+      FetchDetails();
+    } catch (error) {
+      console.error(error.response);
+      setResponseMessage({
+        status: error.response?.data.status,
+        msg: error.response?.data.error[0].msg,
+      });
+      setIsVerified(false);
+      localStorage.removeItem("token");
+    }
+  };
 
-  const DeleteUser = async () => {};
+  const DeleteUser = async (history, setIsVerified) => {
+    const localToken = localStorage.getItem("token");
+    await UserDelete(localToken);
+    localStorage.removeItem("token");
+    setIsVerified(false);
+    history.push("/");
+  };
 
   const FetchDetails = async () => {
-    const localToken = localStorage.getItem("token");
+    try {
+      const localToken = localStorage.getItem("token");
 
-    if (localToken) {
-      const data = await UserDetails(localToken);
-      setUserDetails(data.data.user);
-    } else {
-      setUserDetails(null);
+      if (localToken) {
+        const data = await UserDetails(localToken);
+        setUserDetails(data.data.user);
+      } else {
+        setUserDetails(null);
+      }
+    } catch (error) {
+      console.error(error.response);
+      localStorage.removeItem("token");
     }
   };
 

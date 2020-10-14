@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import Body from "./components/Body";
 import Footer from "./components/Footer";
+import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import SignInForm from "./components/SignInForm";
@@ -16,7 +15,7 @@ function App() {
         <div className="body__content container">
           <Switch>
             <Route exact path="/">
-              <Body />
+              <Home />
             </Route>
             <Route path="/signup">
               <SignUpForm />

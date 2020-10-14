@@ -2,8 +2,6 @@ import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
-
-import validateEmail from "../shared/validateEmail";
 import { validateSignUpCredentials } from "../shared/validateFormCredentials";
 
 const SignUpForm = () => {
@@ -22,41 +20,32 @@ const SignUpForm = () => {
     errorConfirmPasswordMessage,
     setErrorConfirmPasswordMessage,
   ] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const history = useHistory();
 
   const handleChange = (e) => {
     if (e.target.id === "userDisplayName") {
-      setErrorDisplayNameMessage(null);
-      setErrorEmailMessage(null);
-      setErrorPasswordMessage(null);
-      setErrorConfirmPasswordMessage(null);
       setUserDisplayName(e.target.value);
     }
 
     if (e.target.id === "userEmail") {
-      setErrorDisplayNameMessage(null);
-      setErrorEmailMessage(null);
-      setErrorPasswordMessage(null);
-      setErrorConfirmPasswordMessage(null);
       setUserEmail(e.target.value);
     }
 
     if (e.target.id === "userPassword") {
-      setErrorDisplayNameMessage(null);
-      setErrorEmailMessage(null);
-      setErrorPasswordMessage(null);
-      setErrorConfirmPasswordMessage(null);
       setUserPassword(e.target.value);
     }
 
     if (e.target.id === "userConfirmPassword") {
-      setErrorDisplayNameMessage(null);
-      setErrorEmailMessage(null);
-      setErrorPasswordMessage(null);
-      setErrorConfirmPasswordMessage(null);
       setUserConfirmPassword(e.target.value);
     }
+
+    setErrorDisplayNameMessage(null);
+    setErrorEmailMessage(null);
+    setErrorPasswordMessage(null);
+    setErrorConfirmPasswordMessage(null);
+    setErrorMessage(null);
   };
 
   const handleSubmit = (e) => {
@@ -70,6 +59,7 @@ const SignUpForm = () => {
       setErrorEmailMessage,
       setErrorPasswordMessage,
       setErrorConfirmPasswordMessage,
+      setErrorMessage,
       history,
       setIsVerified,
       SignUpUser
@@ -78,6 +68,17 @@ const SignUpForm = () => {
 
   return (
     <div className="signup_form__main">
+      <div
+        className={
+          errorMessage
+            ? "alert alert-danger visible"
+            : "alert alert-danger invisible"
+        }
+        role="alert"
+      >
+        {errorMessage}
+      </div>
+
       <div className="container signup_form__container">
         <div className="form__header">Please Sign Up</div>
 

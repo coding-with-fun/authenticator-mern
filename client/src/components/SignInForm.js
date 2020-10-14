@@ -13,21 +13,22 @@ const SignInForm = () => {
 
   const [errorEmailMessage, setErrorEmailMessage] = useState(null);
   const [errorPasswordMessage, setErrorPasswordMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const history = useHistory();
 
   const handleChange = (e) => {
     if (e.target.id === "userEmail") {
-      setErrorEmailMessage(null);
-      setErrorPasswordMessage(null);
       setUserEmail(e.target.value);
     }
 
     if (e.target.id === "userPassword") {
-      setErrorEmailMessage(null);
-      setErrorPasswordMessage(null);
       setUserPassword(e.target.value);
     }
+
+    setErrorEmailMessage(null);
+    setErrorPasswordMessage(null);
+    setErrorMessage(null);
   };
 
   //  email: "testuser@yopmail.com"
@@ -40,6 +41,7 @@ const SignInForm = () => {
       userPassword,
       setErrorEmailMessage,
       setErrorPasswordMessage,
+      setErrorMessage,
       history,
       setIsVerified,
       SignInUser
@@ -48,6 +50,17 @@ const SignInForm = () => {
 
   return (
     <div className="signin_form__main">
+      <div
+        className={
+          errorMessage
+            ? "alert alert-danger visible"
+            : "alert alert-danger invisible"
+        }
+        role="alert"
+      >
+        {errorMessage}
+      </div>
+
       <div className="container signin_form__container">
         <div className="form__header">Please Sign In</div>
 

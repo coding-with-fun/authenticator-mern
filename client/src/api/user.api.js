@@ -24,13 +24,13 @@ export const UserUpdate = async (body, token) => {
   return await Axios.patch(URL, body, { headers: headers });
 };
 
-export const UserDelete = async (body, token) => {
+export const UserDelete = async (token) => {
   const URL = BASE_URL + "/delete";
   const headers = {
     "x-auth-token": token,
   };
 
-  return await Axios.delete(URL, body, { headers: headers });
+  return await Axios.delete(URL, { headers: headers });
 };
 
 export const UserDetails = async (token) => {
