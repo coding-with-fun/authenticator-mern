@@ -1,0 +1,32 @@
+.navbar {
+  background-color: #2b3237;
+  background-position-y: top;
+  padding: 5px 30px;
+  min-height: 60px;
+
+  img {
+    height: 40px;
+    width: 40px;
+  }
+
+  .signout {
+    cursor: pointer;
+  }
+
+  .nav__footer {
+    .fa-heart {
+      color: #ff0000;
+    }
+
+    a {
+      font-weight: 700;
+      color: #ffffff;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar {
+    margin: 0 5px;
+  }
+}

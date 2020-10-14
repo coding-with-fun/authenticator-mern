@@ -11,7 +11,6 @@ require("dotenv").config();
 const router = express.Router();
 const User = require("../models/User");
 const userAuth = require("../middleware/auth");
-const { findByIdAndDelete } = require("../models/User");
 
 /**
  * @route         POST /user/signup
