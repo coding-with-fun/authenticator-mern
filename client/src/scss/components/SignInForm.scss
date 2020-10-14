@@ -1,0 +1,52 @@
+.signin_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .signin_form__container {
+    color: #2b3137;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    margin-bottom: 25px;
+
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 20px 0px rgba(255, 255, 255, 1);
+
+    .form__header {
+      font-size: 25px;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    form {
+      width: 90%;
+
+      .form-group {
+        width: 100%;
+      }
+
+      .btn {
+        padding: 5px 20px;
+      }
+    }
+  }
+
+  .path_to_signup {
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 600;
+    }
+  }
+}

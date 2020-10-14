@@ -4,7 +4,6 @@ import Home from "./Home";
 const Body = () => {
   return (
     <div>
-      Body
       <Home />
     </div>
   );

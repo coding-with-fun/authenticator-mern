@@ -1,5 +1,16 @@
 .body__content {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: 110px;
+  padding-bottom: 110px;
   height: 100vh;
+
+  overflow: scroll;
+}
+
+.body__content::-webkit-scrollbar {
+  display: none;
+}
+
+.body__content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
