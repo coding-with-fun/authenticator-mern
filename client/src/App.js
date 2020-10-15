@@ -6,6 +6,10 @@ import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
+import {
+  AuthenticatedRoute,
+  UnAuthenticatedRoute,
+} from "./shared/PrivateRoute";
 
 function App() {
   return (
@@ -17,15 +21,15 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/signup">
+            <UnAuthenticatedRoute path="/signup">
               <SignUpForm />
-            </Route>
-            <Route path="/signin">
+            </UnAuthenticatedRoute>
+            <UnAuthenticatedRoute path="/signin">
               <SignInForm />
-            </Route>
-            <Route path="/profile">
+            </UnAuthenticatedRoute>
+            <AuthenticatedRoute path="/profile">
               <Profile />
-            </Route>
+            </AuthenticatedRoute>
           </Switch>
         </div>
         <Footer />

@@ -12,10 +12,17 @@ export const UserContext = createContext();
 
 export const UserProvider = (props) => {
   const [userDetails, setUserDetails] = useState(null);
+  const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      setIsVerified(true);
+    }
+
     FetchDetails();
-  }, []);
+  }, [isVerified]);
 
   const SignUpUser = async (body, setIsVerified, history, setErrorMessage) => {
     try {
@@ -101,6 +108,8 @@ export const UserProvider = (props) => {
     <UserContext.Provider
       value={{
         userDetails,
+        isVerified,
+        setIsVerified,
         SignUpUser,
         SignInUser,
         UpdateUser,

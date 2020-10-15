@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 import { validateSignInCredentials } from "../shared/validateFormCredentials";
 
 const SignInForm = () => {
-  const { SignInUser } = useContext(UserContext);
-  const { setIsVerified } = useContext(AuthContext);
+  const { setIsVerified, SignInUser } = useContext(UserContext);
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");

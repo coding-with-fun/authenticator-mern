@@ -2,12 +2,10 @@ import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Logo from "../assets/authentication.png";
-import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
-  const { isVerified, setIsVerified } = useContext(AuthContext);
-  const { userDetails } = useContext(UserContext);
+  const { isVerified, setIsVerified, userDetails } = useContext(UserContext);
 
   const [avatar, setAvatar] = useState(null);
 

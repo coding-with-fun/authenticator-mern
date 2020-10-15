@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 import { validateUpdateCredentials } from "../shared/validateFormCredentials";
 
 const Profile = () => {
-  const { userDetails, UpdateUser, DeleteUser } = useContext(UserContext);
-  const { setIsVerified } = useContext(AuthContext);
+  const { userDetails, UpdateUser, DeleteUser, setIsVerified } = useContext(
+    UserContext
+  );
 
   const [userDisplayName, setUserDisplayName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -15,9 +15,6 @@ const Profile = () => {
   const [errorDisplayNameMessage, setErrorDisplayNameMessage] = useState(null);
   const [errorEmailMessage, setErrorEmailMessage] = useState(null);
   const [responseMessage, setResponseMessage] = useState(null);
-  const [responseMessageClass, setResponseMessageClass] = useState(
-    "alert alert-danger invisible"
-  );
 
   const history = useHistory();
 
@@ -33,7 +30,6 @@ const Profile = () => {
         "http://www.gravatar.com/avatar/aaee2964ee764dbc53cea54b81cc996f?s=200&r=pg&d=mm"
       );
     }
-    alertClass();
   }, [userDetails]);
 
   const handleChange = (e) => {
@@ -48,7 +44,6 @@ const Profile = () => {
     setErrorDisplayNameMessage(null);
     setErrorEmailMessage(null);
     setResponseMessage(null);
-    setResponseMessageClass("alert alert-danger invisible");
   };
 
   const handleSubmit = (e) => {
@@ -70,21 +65,18 @@ const Profile = () => {
     DeleteUser(history, setIsVerified);
   };
 
-  const alertClass = () => {
-    if (responseMessage) {
-      if (responseMessage.status) {
-        setResponseMessageClass("alert alert-success visible");
-      } else {
-        setResponseMessageClass("alert alert-danger visible");
-      }
-    } else {
-      setResponseMessageClass("alert alert-danger invisible");
-    }
-  };
-
   return (
     <div className="profile__container">
-      <div className={responseMessageClass} role="alert">
+      <div
+        className={
+          responseMessage
+            ? responseMessage.status
+              ? "alert alert-success visible"
+              : "alert alert-danger visible"
+            : "alert alert-danger invisible"
+        }
+        role="alert"
+      >
         {responseMessage?.msg}
       </div>
 

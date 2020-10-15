@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
 
 const Home = () => {
-  const { isVerified } = useContext(AuthContext);
-  const { userDetails } = useContext(UserContext);
+  const { userDetails, isVerified } = useContext(UserContext);
 
   return (
     <div className="home__container">
