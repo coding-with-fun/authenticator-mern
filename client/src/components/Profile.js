@@ -4,9 +4,7 @@ import { UserContext } from "../context/UserContext";
 import { validateUpdateCredentials } from "../shared/validateFormCredentials";
 
 const Profile = () => {
-  const { userDetails, UpdateUser, DeleteUser, setIsVerified } = useContext(
-    UserContext
-  );
+  const { userDetails, UpdateUser, DeleteUser } = useContext(UserContext);
 
   const [userDisplayName, setUserDisplayName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -55,14 +53,13 @@ const Profile = () => {
       setErrorEmailMessage,
       setResponseMessage,
       history,
-      setIsVerified,
       UpdateUser
     );
   };
 
   const handleDelete = (e) => {
     e.preventDefault();
-    DeleteUser(history, setIsVerified);
+    DeleteUser(history);
   };
 
   return (

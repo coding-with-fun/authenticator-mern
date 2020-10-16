@@ -24,7 +24,7 @@ export const UserProvider = (props) => {
     FetchDetails();
   }, [isVerified]);
 
-  const SignUpUser = async (body, setIsVerified, history, setErrorMessage) => {
+  const SignUpUser = async (body, history, setErrorMessage) => {
     try {
       const data = await UserSignUp(body);
       localStorage.setItem("token", data.data.token);
@@ -37,7 +37,7 @@ export const UserProvider = (props) => {
     }
   };
 
-  const SignInUser = async (body, setIsVerified, history, setErrorMessage) => {
+  const SignInUser = async (body, history, setErrorMessage) => {
     try {
       const data = await UserSignIn(body);
       localStorage.setItem("token", data.data.token);
@@ -50,12 +50,7 @@ export const UserProvider = (props) => {
     }
   };
 
-  const UpdateUser = async (
-    body,
-    setIsVerified,
-    history,
-    setResponseMessage
-  ) => {
+  const UpdateUser = async (body, history, setResponseMessage) => {
     try {
       const localToken = localStorage.getItem("token");
       const data = await UserUpdate(body, localToken);
@@ -78,7 +73,7 @@ export const UserProvider = (props) => {
     }
   };
 
-  const DeleteUser = async (history, setIsVerified) => {
+  const DeleteUser = async (history) => {
     const localToken = localStorage.getItem("token");
     await UserDelete(localToken);
     localStorage.removeItem("token");

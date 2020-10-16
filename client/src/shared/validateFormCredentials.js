@@ -7,7 +7,6 @@ export const validateSignInCredentials = (
   setErrorPasswordMessage,
   setErrorMessage,
   history,
-  setIsVerified,
   SignInUser
 ) => {
   let body;
@@ -32,7 +31,7 @@ export const validateSignInCredentials = (
               password: userPassword,
             };
 
-            SignInUser(body, setIsVerified, history, setErrorMessage);
+            SignInUser(body, history, setErrorMessage);
           }
         }
       }
@@ -53,7 +52,6 @@ export const validateSignUpCredentials = (
   setErrorConfirmPasswordMessage,
   setErrorMessage,
   history,
-  setIsVerified,
   SignUpUser
 ) => {
   let body;
@@ -94,7 +92,7 @@ export const validateSignUpCredentials = (
                       confirmPassword: userConfirmPassword,
                     };
 
-                    SignUpUser(body, setIsVerified, history, setErrorMessage);
+                    SignUpUser(body, history, setErrorMessage);
                   }
                 }
               }
@@ -115,7 +113,6 @@ export const validateUpdateCredentials = (
   setErrorEmailMessage,
   setResponseMessage,
   history,
-  setIsVerified,
   UpdateUser
 ) => {
   let body;
@@ -135,7 +132,7 @@ export const validateUpdateCredentials = (
             email: userEmail,
           };
 
-          UpdateUser(body, setIsVerified, history, setResponseMessage);
+          UpdateUser(body, history, setResponseMessage);
         }
       }
     }

@@ -4,7 +4,7 @@ import { UserContext } from "../context/UserContext";
 import { validateSignInCredentials } from "../shared/validateFormCredentials";
 
 const SignInForm = () => {
-  const { setIsVerified, SignInUser } = useContext(UserContext);
+  const { SignInUser } = useContext(UserContext);
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -41,7 +41,6 @@ const SignInForm = () => {
       setErrorPasswordMessage,
       setErrorMessage,
       history,
-      setIsVerified,
       SignInUser
     );
   };
